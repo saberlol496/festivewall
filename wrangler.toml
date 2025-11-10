@@ -1,4 +1,4 @@
-name = "festive-wall"
+name = "festivewall"
 main = "worker.js"
 compatibility_date = "2025-11-10"
 
