@@ -30,11 +30,174 @@ export default {
 
     let messagesHtml = "";
     for (let i = 0; i < rows.length; i++) {
-      messagesHtml += `<div class="msg">${esc(rows[i].content)}<div class="time">${esc(rows[i].created_at)}</div></div>`;
+      messagesHtml += `<div class="message">${esc(rows[i].content)}<time>${esc(rows[i].created_at)}</time></div>`;
     }
 
     if (!messagesHtml) {
       messagesHtml = '<div class="empty">Share your message</div>';
+    }
+
+    const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>FestiveWall</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2d2d2d;
+      --background: #ffffff;
+      --surface: #f5f5f5;
+      --border: #e0e0e0;
+      --text: #2d2d2d;
+      --text-secondary: #666666;
+      --radius: 8px;
+      --transition: 180ms ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      line-height: 1.5;
+      color: var(--text);
+      background: var(--background);
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    form {
+      margin-bottom: 2rem;
+      display: flex;
+      gap: 1rem;
+    }
+
+    input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      font-family: inherit;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--background);
+      transition: border-color var(--transition);
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-family: inherit;
+      font-weight: 500;
+      color: var(--background);
+      background: var(--primary);
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: opacity var(--transition);
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .message {
+      padding: 1.25rem;
+      background: var(--surface);
+      border-radius: var(--radius);
+      animation: fade 300ms ease;
+    }
+
+    time {
+      display: block;
+      margin-top: 0.75rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .empty {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-secondary);
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(0.5rem); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      form {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>FestiveWall</h1>
+      <p>Share your message with others</p>
+    </header>
+
+    <form method="POST">
+      <input 
+        name="message" 
+        type="text" 
+        placeholder="Write something..." 
+        required 
+        maxlength="500" 
+        autocomplete="off"
+      >
+      <button type="submit">Post</button>
+    </form>
+
+    <main>
+      ${messagesHtml}
+    </main>
+  </div>
+</body>
+</html>`;
+
+    return new Response(html, {
+      headers: { "Content-Type": "text/html; charset=utf-8" }
+    });
+  }
+};      messagesHtml = '<div class="empty">Share your message</div>';
     }
 
     const html = `<!doctype html>
