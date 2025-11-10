@@ -1,0 +1,8 @@
+name = "festive-wall"
+main = "worker.js"
+compatibility_date = "2025-11-10"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "festive-wall-db"
+database_id = "030cec4b-3cd9-4f20-921d-3589e1a0b907"
