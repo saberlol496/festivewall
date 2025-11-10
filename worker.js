@@ -34,7 +34,7 @@ export default {
     }
 
     if (!messagesHtml) {
-      messagesHtml = '<div class="empty">Share your message</div>';
+      messagesHtml = '<div class="empty">🎄 Be the first to share a holiday message!</div>';
     }
 
     const html = `<!DOCTYPE html>
@@ -42,53 +42,122 @@ export default {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>FestiveWall</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <title>FestiveWall – Holiday Edition</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Single+Day&display=swap" rel="stylesheet">
   <style>
     :root{
-      --primary:#2d2d2d;
-      --background:#ffffff;
-      --surface:#f5f5f5;
-      --border:#e6e6e6;
-      --text:#2d2d2d;
-      --muted:#666666;
-      --radius:8px;
-      --transition:180ms ease;
+      --main-bg: #f6fcfa;
+      --accent: #147664;
+      --accent-light: #def6ee;
+      --text: #273641;
+      --soft: #ececec;
+      --msg-bg: #fff;
+      --msg-border: #b4dcce;
+      --highlight: #f43f5e;
+      --radius: 10px;
+      --shadow: 0 2px 16px 0 rgba(20,118,100,.04);
     }
-    *{box-sizing:border-box;margin:0;padding:0}
+    *{ box-sizing:border-box; margin:0; padding:0; }
     body{
-      font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-      background:var(--background);
-      color:var(--text);
-      line-height:1.5;
-      padding:2rem 1rem;
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      background: var(--main-bg);
+      color: var(--text);
       min-height:100vh;
+      padding:2rem 1rem;
     }
-    .container{max-width:640px;margin:0 auto}
-    header{margin-bottom:2rem;text-align:center}
-    h1{font-size:2rem;font-weight:500;margin-bottom:.4rem}
-    p.subtitle{color:var(--muted);font-size:0.95rem;margin:0}
-    form{display:flex;gap:1rem;margin-bottom:1.75rem}
+    .container{ max-width:560px; margin:0 auto; }
+    header { text-align: center; margin-bottom:2.2rem; }
+    .holiday-emoji {
+      font-size:2.4rem;
+      margin-bottom: .5rem;
+      display: block;
+      font-family:'Single Day', cursive, emoji;
+    }
+    h1 {
+      font-family:'Single Day', cursive, sans-serif;
+      font-size:2.2rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin: 0 0 .3rem 0;
+      letter-spacing:-1px;
+    }
+    p.subtitle {
+      font-size:1.05rem;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+      font-weight:500;
+    }
+    form{
+      display:flex;
+      gap:.7rem;
+      background: var(--accent-light);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: .7rem .85rem;
+      margin-bottom: 1.45rem;
+      border: 1px solid var(--msg-border);
+    }
     input[type="text"]{
-      flex:1;padding:.75rem 1rem;border:1px solid var(--border);border-radius:var(--radius);
-      background:var(--background);font-size:1rem;transition:border-color var(--transition);font-family:inherit
+      flex:1;
+      padding: .8rem 1rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--msg-border);
+      background: #fff;
+      font-size: 1rem;
+      transition: border-color .15s;
     }
-    input[type="text"]:focus{outline:none;border-color:var(--primary)}
-    button{
-      padding:.75rem 1.25rem;border-radius:var(--radius);border:none;background:var(--primary);
-      color:var(--background);cursor:pointer;font-weight:500;transition:opacity var(--transition)
+    input[type="text"]:focus {
+      border-color: var(--accent);
+      outline: none;
     }
-    button:hover{opacity:.92}
-    main{display:flex;flex-direction:column;gap:.9rem}
+    button {
+      min-width: 80px;
+      padding: .8rem 1.2rem;
+      border: none;
+      border-radius: var(--radius);
+      color: #fff;
+      background: var(--highlight);
+      font-weight:600;
+      font-size:1rem;
+      letter-spacing:.03em;
+      cursor:pointer;
+      box-shadow:0 1px 4px rgba(244,63,94,.09);
+      transition: background .13s;
+    }
+    button:hover { background: #e11d48; }
+    main{ display:flex; flex-direction:column; gap:.75rem; }
     .message{
-      background:var(--surface);padding:1.1rem;border-radius:var(--radius);border:1px solid var(--border);
-      animation:fade .28s ease both;
+      background: var(--msg-bg);
+      border: 1.5px solid var(--msg-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.12rem 1.05rem .82rem 1.05rem;
+      font-size:1.045rem;
+      line-height:1.6;
+      word-break:break-word;
+      transition: box-shadow .14s;
     }
-    time{display:block;margin-top:.6rem;color:var(--muted);font-size:.875rem}
-    .empty{text-align:center;padding:2.5rem 1rem;color:var(--muted)}
-    @keyframes fade{from{opacity:0;transform:translateY(.25rem)}to{opacity:1;transform:none}}
+    .message:hover { box-shadow: 0 4px 15px 0 #b4dcce4d; border-color: var(--accent); }
+    time{
+      display:block;
+      color: var(--accent);
+      margin-top:.6rem;
+      font-size:.86rem;
+      font-weight:500;
+      opacity:.93;
+      letter-spacing:.03em;
+    }
+    .empty{
+      text-align:center;
+      color:var(--accent);
+      font-weight:600;
+      padding:2.2rem 1rem;
+      font-size:1.12rem;
+      opacity:.7;
+    }
     @media(max-width:640px){
-      form{flex-direction:column}
+      .container{max-width:98vw}
+      form{flex-direction:column; gap:.6rem}
       button{width:100%}
     }
   </style>
@@ -96,11 +165,12 @@ export default {
 <body>
   <div class="container">
     <header>
+      <span class="holiday-emoji" role="img" aria-label="tree">🎄</span>
       <h1>FestiveWall</h1>
-      <p class="subtitle">Share your message with others</p>
+      <p class="subtitle">Minimal holiday cheer – share a wish!</p>
     </header>
     <form method="POST" autocomplete="off">
-      <input name="message" type="text" placeholder="Write something..." required maxlength="500" autocomplete="off">
+      <input name="message" type="text" placeholder="Write a cheerful holiday message…" required maxlength="500" autocomplete="off">
       <button type="submit">Post</button>
     </form>
     <main>
